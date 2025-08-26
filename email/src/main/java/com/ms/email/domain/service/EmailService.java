@@ -12,15 +12,19 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
 @Service
-public class UserService {
+public class EmailService {
 
     private final EmailRepository emailRepository;
     private final JavaMailSender emailSender;
 
     @Value(value = "${spring.mail.username}")
     private String emailFrom;
+
+    public EmailService(EmailRepository emailRepository, JavaMailSender emailSender) {
+        this.emailRepository = emailRepository;
+        this.emailSender = emailSender;
+    }
 
     public Email sendEmail(Email email) {
         try {
