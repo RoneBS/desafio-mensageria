@@ -13,4 +13,3 @@ public class EmailConsumer {
         System.out.println(emailRecordDto.emailTo());
     }
 }
-//01:07:15
