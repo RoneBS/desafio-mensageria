@@ -2,12 +2,11 @@ package com.ms.user.producer;
 
 import com.ms.user.api.dto.EmailDto;
 import com.ms.user.domain.entities.User;
-import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@AllArgsConstructor
+
 @Component
 public class UserProducer {
 
@@ -15,6 +14,10 @@ public class UserProducer {
 
     @Value(value = "${broker.queue.email.name}") //mesma chave utilizada no email
     private String routingKey;
+
+    public UserProducer(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
     public void publishMessageEmail(User user) {
         var emailDto = new EmailDto();
