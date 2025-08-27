@@ -3,6 +3,7 @@ package com.ms.user.api.controller;
 import com.ms.user.api.dto.UserRecordDto;
 import com.ms.user.domain.entities.User;
 import com.ms.user.domain.service.UserService;
+import com.ms.user.exception.MessagePublicationException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -22,9 +23,17 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> saveUser(@RequestBody @Valid UserRecordDto userRecordDto) {
+    public ResponseEntity<Object> saveUser(@RequestBody @Valid UserRecordDto userRecordDto) {
         var user = new User();
         BeanUtils.copyProperties(userRecordDto, user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
+
+        try {
+            User savedUser = userService.save(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+        } catch (MessagePublicationException e) {
+            // Se a exceção de publicação de mensagem for capturada, retorna um erro 503
+            // com uma mensagem amigável, indicando que o serviço de e-mail está indisponível.
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("O serviço de email não esta operante. tente novamente mais tarde.");
+        }
     }
 }
