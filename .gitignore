@@ -1,10 +1,10 @@
-HELP.md
+### Exclusões de Build ###
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
+### Exclusões de IDE ###
 .apt_generated
 .classpath
 .factorypath
@@ -12,15 +12,10 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
-### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-application.properties
-
-### NetBeans ###
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -29,6 +24,8 @@ application.properties
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
-
-### VS Code ###
 .vscode/
+
+### Exclusões de Propriedades de Aplicação ###
+user/src/main/resources/application.properties
+email/src/main/resources/application.properties
